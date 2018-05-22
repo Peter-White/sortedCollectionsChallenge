@@ -7,6 +7,7 @@ public class Main {
 	private static StockList stockList = new StockList();
 	private static Scanner scanner = new Scanner(System.in);
 	private static boolean employee = false;
+	private static boolean lockout = false;
 	
 	public static void main(String[] args) {
 		System.out.println("Welcome to 🛍 Stop and Drop Online!");
@@ -149,9 +150,9 @@ public class Main {
 	}
 	
 	public static void stockMenu() {
+		boolean back = false;
 		if(employee) {
 			System.out.println("Welcome Stop and Drop Employee");
-			boolean back = false;
 			printStockInstructions();
 			while (!back) {
 				System.out.println("Enter your choice:");
@@ -181,13 +182,18 @@ public class Main {
 				}
 			}
 		} else {
-			boolean entrance = login("Succulent");
-			if(entrance) {
-				employee = true;
-				stockMenu();
+			if(!lockout) {
+				boolean entrance = login("Succulent");
+				if(entrance) {
+					employee = true;
+					stockMenu();
+				} else {
+					System.out.println("You have been locked out");
+				}				
 			} else {
-				
+				System.out.println("You cannot access this page. EVER!");
 			}
+			mainMenu();
 		}
 	}
 	
@@ -223,17 +229,19 @@ public class Main {
 	}
 	
 	public static boolean login(String password) {
-		int lockout = 5;
-		while (lockout > 0) {
+		int lockoutCount = 5;
+		scanner.nextLine();
+		while (lockoutCount > 0) {
 			System.out.println("Enter employee password");
-			scanner.nextLine();
 			String entry = scanner.nextLine();
 			if(entry.equals(password)) {
 				return true;
 			} else {
-				System.out.println("Invalid");
+				lockoutCount--;
+				System.out.println("Invalid: " + lockoutCount + " loging attempts remaining\n");
 			}
 		}
+		lockout = true;
 		return false;
 	}
 	

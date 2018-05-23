@@ -16,7 +16,6 @@ public class Basket {
 	}
 	
 	public int addToBasket(StockItem item, int quantity) {
-		boolean contains = list.containsKey(item);
 		if((item != null) && (quantity > 0)) {
 			int inBasket = list.getOrDefault(item, 0);
 			list.put(item, inBasket + quantity);
@@ -25,6 +24,10 @@ public class Basket {
 		return 0;
 	}
 
+	public void name() {
+		
+	}
+	
 	public String getName() {
 		return name;
 	}

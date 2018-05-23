@@ -313,10 +313,12 @@ public class Main {
 		return false;
 	}
 	
-	public static int addToBasket(Basket basket, int quantity) {
+	public static int addToBasket(Basket basket) {
 		scanner.nextLine();
 		System.out.println("\nEnter item from stock list to add to your basket");
 		String item = scanner.nextLine();
+		
+		int quantity = 0;
 		
 		StockItem stockItem = stockList.get(item.toUpperCase().replaceAll(" ", "_"));
 		
@@ -328,36 +330,57 @@ public class Main {
 		if(basket.Items().containsKey(stockItem)) {
 			boolean valid = false;
 			while (!valid) {
-				System.out.println(item + " is already in your basket");
+				System.out.println(item + " is already in your basket with a quantity of " + basket.Items().get(stockItem));
 				System.out.println("Would you like to add change the quantity? (Y/N)");
 				String answer = scanner.nextLine();
 				if(answer.toUpperCase().equals("Y")) {
-					System.out.println("Enter quantity to be added. You can use negative numbers to substract from your cart.");
+					quantity = basket.Items().get(stockItem);
 					valid = true;
 				} else if (answer.toUpperCase().equals("N")){
 					System.out.println("Back to basket");
-					valid = true;
+					return 0;
 				} else {
 					System.out.println("Not a valid entry");
 				}
 			}
 		}
 		
-		if(stockItem.quantityInStock() >= quantity) {
-			if(quantity > 0) {
-				System.out.println(quantity + " " + ((quantity == 1) ? 
-				stockItem.getName() : stockItem.getName() + "s") + 
-				" has been added to the basket");
-				basket.addToBasket(stockItem, quantity);
-				return quantity;
-			} else {
-				System.out.println("Cannot add less than 1 item");
-				return 0;
-			}
+		boolean valid = false;
+		while (!valid) {
+			System.out.println("Enter quantity to be added. You can use negative numbers to substract from your cart.");
+			int newQuantity = scanner.nextInt();
+			
+			quantity += newQuantity;
+			
+			if(stockItem.quantityInStock() >= quantity) {
+				if(quantity > 0) {
+					System.out.println(quantity + " " + ((quantity == 1) ? 
+					stockItem.getName() : stockItem.getName() + "s") + 
+					" has been added to the basket");
+					basket.addToBasket(stockItem, quantity);
+					return quantity;
+				} else if (quantity == 0) {
+					boolean choice = false;
+					while (!choice) {
+						System.out.println("Your quantity is zero. Do you wish to remove item from cart? (Y/N)");
+						String answer = scanner.nextLine();
+						if(answer.toUpperCase().equals("Y")) {
+							
+							valid = true;
+						} else if (answer.toUpperCase().equals("N")){
+							System.out.println("Back to basket");
+							choice = true;
+						} else {
+							System.out.println("Not a valid entry");
+						}
+					}
+				} else {
+					System.out.println("You cannot have less than zero quantity");
+				}
 
-		} else {
-			System.out.println("There is not enough of that item in stock");
-			return 0;
+			} else {
+				System.out.println("There is not enough of that item in stock");
+			}
 		}
 	}
 	

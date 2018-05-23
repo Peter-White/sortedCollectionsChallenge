@@ -129,7 +129,7 @@ public class Main {
 	}
 	
 	public static void printStockInstructions() {
-		System.out.println("🛍 Stop and Drop! Item Stock. Employees Only.");
+		System.out.println("\n🛍 Stop and Drop! Item Stock. Employees Only.");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To view all stock items");
@@ -158,7 +158,17 @@ public class Main {
 					addToStock();
 					break;
 				case 3:
-					System.out.println(stockList);
+					boolean valid = false;
+					while (!valid) {
+						scanner.nextLine();
+						System.out.println("Enter item name");
+						String name = scanner.nextLine();
+						if(stockList.Items().containsKey(
+								 name.toUpperCase().replaceAll(" ", "_"))) {
+							
+						}
+					}
+					
 					break;
 				case 4:
 					System.out.println("Under Construction");
@@ -201,7 +211,31 @@ public class Main {
 		boolean back = false;
 		printBasketInstructions();
 		while (!back) {
-			
+			System.out.println("\nEnter your choice:");
+			int choice = scanner.nextInt();
+			switch (choice) {
+			case 0:
+				printBasketItemInstructions();
+				break;
+			case 1:
+				System.out.println(stockList);
+				break;
+			case 2:
+				addToStock();
+				break;
+			case 3:
+				System.out.println("Under Construction");
+				break;
+			case 4:
+				System.out.println("Under Construction");
+				break;
+			case 5:
+				System.out.println("Back to main");
+				back = true;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	
@@ -279,8 +313,12 @@ public class Main {
 		return false;
 	}
 	
-	public static int addToBasket(Basket basket, String item, int quantity) {
-		StockItem stockItem = stockList.get(item);
+	public static int addToBasket(Basket basket, int quantity) {
+		scanner.nextLine();
+		System.out.println("\nEnter item from stock list to add to your basket");
+		String item = scanner.nextLine();
+		
+		StockItem stockItem = stockList.get(item.toUpperCase().replaceAll(" ", "_"));
 		
 		if(stockItem == null) {
 			System.out.println("We don't sell " + item);
@@ -288,7 +326,21 @@ public class Main {
 		}
 		
 		if(basket.Items().containsKey(stockItem)) {
-			System.out.println(item + " is already in your basket");
+			boolean valid = false;
+			while (!valid) {
+				System.out.println(item + " is already in your basket");
+				System.out.println("Would you like to add change the quantity? (Y/N)");
+				String answer = scanner.nextLine();
+				if(answer.toUpperCase().equals("Y")) {
+					System.out.println("Enter quantity to be added. You can use negative numbers to substract from your cart.");
+					valid = true;
+				} else if (answer.toUpperCase().equals("N")){
+					System.out.println("Back to basket");
+					valid = true;
+				} else {
+					System.out.println("Not a valid entry");
+				}
+			}
 		}
 		
 		if(stockItem.quantityInStock() >= quantity) {
@@ -366,5 +418,4 @@ public class Main {
 			}
 		}
 	}
-	
 }

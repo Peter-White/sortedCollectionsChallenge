@@ -25,6 +25,10 @@ public class Basket {
 		return 0;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public Map<StockItem, Integer> Items() {
 		return Collections.unmodifiableMap(list);
 	}
@@ -41,7 +45,7 @@ public class Basket {
 		double totalCost = 0.0;
 		for(Map.Entry<StockItem, Integer> item : list.entrySet()) {
 			
-			s = s + item.getKey() + ". " + item.getValue() + " purchased\n";
+			s = s + item.getKey() + ". " + item.getValue() + " added\n";
 			totalCost += item.getKey().getPrice() * item.getValue();
 		}
 		

@@ -17,7 +17,7 @@ public class StockList {
 		if(item != null) {
 			// check if we already have quantities of this item
 			StockItem inStockItem = list.getOrDefault(item.getName(), item);
-			// If there are already stocks on this item, adjust the quantity
+			// If there are already stocks of this item, adjust the quantity
 			if(inStockItem != item) {
 				item.adjustStock(inStockItem.quantityInStock());
 			}

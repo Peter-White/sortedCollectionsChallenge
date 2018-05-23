@@ -77,7 +77,6 @@ public class Main {
 //			System.out.println(price.getKey() + " costs " + price.getValue());
 //		}
 		
-		System.out.println("Welcome to 🛍 Stop and Drop Online!\n");
 		System.out.println("Enter your name");
 		String name = scanner.nextLine();
 		customerBasket = new Basket(name);
@@ -86,6 +85,7 @@ public class Main {
 	}
 	
 	public static void printMainInstructions() {
+		System.out.println("Welcome to 🛍 Stop and Drop Online!\n");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To view your basket items");
@@ -93,7 +93,7 @@ public class Main {
         System.out.println("\t 3 - To view stock items");
         System.out.println("\t 4 - To open stock item menu");
         System.out.println("\t 5 - To quit the application.");
-        System.out.println();
+        System.out.println("\n");
 	}
 	
 	public static void mainMenu() {
@@ -130,20 +130,21 @@ public class Main {
 	}
 	
 	public static void printStockInstructions() {
+		System.out.println("🛍 Stop and Drop! Item Stock. Employees Only.\n");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To view all stock items");
         System.out.println("\t 2 - To add to stock");
-        System.out.println("\t 3 - To update stock item quantity");
+        System.out.println("\t 3 - To view item");
         System.out.println("\t 4 - To remove item from stock");
         System.out.println("\t 5 - To go back to main");
-        System.out.println();
+        System.out.println("\n");
 	}
 	
 	public static void stockMenu() {
 		boolean back = false;
 		if(employee) {
-			System.out.println("Welcome Stop and Drop Employee");
+			System.out.println("Welcome 🛍 Stop and Drop! Employee");
 			printStockInstructions();
 			while (!back) {
 				System.out.println("Enter your choice:");
@@ -189,13 +190,14 @@ public class Main {
 	}
 	
 	public static void printBasketItemInstructions() {
+		System.out.println("Your 🛍 Stop and Drop! Basket");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To add to basket");
         System.out.println("\t 2 - To update quantity of item");
         System.out.println("\t 3 - To remove from basket");
         System.out.println("\t 4 - To go back to basket");
-        System.out.println();
+        System.out.println("\n");
 	}
 	
 	public static void basketMenu() {
@@ -206,15 +208,53 @@ public class Main {
 		}
 	}
 	
-	public static void printStockItemMenu() {
+	public static void printStockItemMenu(String name) {
+		System.out.println("🛍 Stop and Drop! Stock Item " + name);
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
-        System.out.println("\t 1 - To view your basket items");
-        System.out.println("\t 2 - To open your basket");
-        System.out.println("\t 3 - To view stock items");
-        System.out.println("\t 4 - To open stock item menu");
-        System.out.println("\t 5 - To quit the application.");
-        System.out.println();
+        System.out.println("\t 1 - To view item");
+        System.out.println("\t 2 - To change item price");
+        System.out.println("\t 3 - To change item quanity");
+        System.out.println("\t 4 - To delete item");
+        System.out.println("\t 5 - To go back to stock menu");
+        System.out.println("\n");
+	}
+	
+	public static void stockItemMenu(StockItem item) {
+		boolean back = false;
+		if(employee) {
+			System.out.println("🛍 Stop and Drop! Item " + item.getName());
+			printStockInstructions();
+			while (!back) {
+				System.out.println("Enter your choice:");
+				int choice = scanner.nextInt();
+				switch (choice) {
+				case 0:
+					printStockItemMenu(item.getName());
+					break;
+				case 1:
+					System.out.println(stockList);
+					break;
+				case 2:
+					addToStock();
+					break;
+				case 3:
+					System.out.println("Under Construction");
+					break;
+				case 4:
+					System.out.println("Under Construction");
+					break;
+				case 5:
+					System.out.println("Back to main");
+					back = true;
+					break;
+				default:
+					break;
+				}
+			}
+		} else {
+			System.out.println("You are not an employee. Access Denied.");
+		}
 	}
 	
 	public static void printBasketInstructions() {
@@ -225,7 +265,7 @@ public class Main {
         System.out.println("\t 3 - To view stock items");
         System.out.println("\t 4 - To open stock item menu");
         System.out.println("\t 5 - To quit the application.");
-        System.out.println();
+        System.out.println("\n");
 	}
 	
 	public static boolean login(String password) {
@@ -330,7 +370,6 @@ public class Main {
 					System.out.println("Not a valid entry");
 				}
 			}
-
 		}
 	}
 

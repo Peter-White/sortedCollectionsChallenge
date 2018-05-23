@@ -23,6 +23,7 @@ public class StockList {
 			}
 			
 			list.put(item.getName(), item);
+			System.out.println(item.getName() + " added to stock");
 			return item.quantityInStock();
 		}
 		return 0;

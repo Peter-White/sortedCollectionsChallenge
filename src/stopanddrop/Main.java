@@ -149,7 +149,7 @@ public class Main {
 				int choice = scanner.nextInt();
 				switch (choice) {
 				case 0:
-					printMainInstructions();
+					printStockInstructions();
 					break;
 				case 1:
 					System.out.println(stockList);
@@ -158,7 +158,7 @@ public class Main {
 					addToStock();
 					break;
 				case 3:
-					System.out.println("Under Construction");
+					System.out.println(stockList);
 					break;
 				case 4:
 					System.out.println("Under Construction");
@@ -219,7 +219,6 @@ public class Main {
 	public static void stockItemMenu(StockItem item) {
 		boolean back = false;
 		if(employee) {
-			System.out.println("🛍 Stop and Drop! Item " + item.getName());
 			printStockInstructions();
 			while (!back) {
 				System.out.println("\nEnter your choice:");
@@ -323,14 +322,14 @@ public class Main {
 	
 	public static void addToStock() {
 		scanner.nextLine();
-		System.out.println("Enter the item name to add:");
+		System.out.println("\nEnter the item name to add:");
 		String name = scanner.nextLine();
 		String nameConverted = name.toUpperCase().replaceAll(" ", "_");
 		if(!stockList.Items().containsKey(nameConverted)) {
 			// Set Price
 			double price = -0.01;
 			while(price < 0.00) {
-				System.out.println("Enter the price of the item");
+				System.out.println("\nEnter the price of the item");
 				price = scanner.nextDouble();
 				if(price < 0.00) {
 					System.out.println("Cannot have a price less than zero");
@@ -339,10 +338,10 @@ public class Main {
 			// Set quantity
 			int quantity = 0;
 			while (quantity < 1) {
-				System.out.println("Enter the quantity for " + name);
+				System.out.println("\nEnter the quantity for " + name);
 				quantity = scanner.nextInt();
 				if(quantity < 1) {
-					System.out.println("Cannot have a quantity less than 1");
+					System.out.println("\nCannot have a quantity less than 1");
 				}
 			}
 			

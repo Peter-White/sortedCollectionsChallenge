@@ -80,27 +80,26 @@ public class Main {
 		System.out.println("Enter your name");
 		String name = scanner.nextLine();
 		customerBasket = new Basket(name);
-		System.out.println("Hello " + customerBasket.getName() + "!");
+		System.out.println("\nHello " + customerBasket.getName() + "!\n");
 		mainMenu();
 	}
 	
 	public static void printMainInstructions() {
-		System.out.println("Welcome to 🛍 Stop and Drop Online!\n");
+		System.out.println("Welcome to 🛍 Stop and Drop Online!");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To view your basket items");
         System.out.println("\t 2 - To open your basket");
         System.out.println("\t 3 - To view stock items");
         System.out.println("\t 4 - To open stock item menu");
-        System.out.println("\t 5 - To quit the application.");
-        System.out.println("\n");
+        System.out.println("\t 5 - To quit the application");
 	}
 	
 	public static void mainMenu() {
 		boolean on = true;
 		printMainInstructions();
 		while (on) {
-			System.out.println("Enter your choice:");
+			System.out.println("\nEnter your choice:");
 			int choice = scanner.nextInt();
 			switch (choice) {
 			case 0:
@@ -130,7 +129,7 @@ public class Main {
 	}
 	
 	public static void printStockInstructions() {
-		System.out.println("🛍 Stop and Drop! Item Stock. Employees Only.\n");
+		System.out.println("🛍 Stop and Drop! Item Stock. Employees Only.");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To view all stock items");
@@ -138,16 +137,15 @@ public class Main {
         System.out.println("\t 3 - To view item");
         System.out.println("\t 4 - To remove item from stock");
         System.out.println("\t 5 - To go back to main");
-        System.out.println("\n");
 	}
 	
 	public static void stockMenu() {
 		boolean back = false;
 		if(employee) {
-			System.out.println("Welcome 🛍 Stop and Drop! Employee");
+			System.out.println("\nWelcome 🛍 Stop and Drop! Employee\n");
 			printStockInstructions();
 			while (!back) {
-				System.out.println("Enter your choice:");
+				System.out.println("\nEnter your choice:");
 				int choice = scanner.nextInt();
 				switch (choice) {
 				case 0:
@@ -197,7 +195,6 @@ public class Main {
         System.out.println("\t 2 - To update quantity of item");
         System.out.println("\t 3 - To remove from basket");
         System.out.println("\t 4 - To go back to basket");
-        System.out.println("\n");
 	}
 	
 	public static void basketMenu() {
@@ -217,7 +214,6 @@ public class Main {
         System.out.println("\t 3 - To change item quanity");
         System.out.println("\t 4 - To delete item");
         System.out.println("\t 5 - To go back to stock menu");
-        System.out.println("\n");
 	}
 	
 	public static void stockItemMenu(StockItem item) {
@@ -226,7 +222,7 @@ public class Main {
 			System.out.println("🛍 Stop and Drop! Item " + item.getName());
 			printStockInstructions();
 			while (!back) {
-				System.out.println("Enter your choice:");
+				System.out.println("\nEnter your choice:");
 				int choice = scanner.nextInt();
 				switch (choice) {
 				case 0:
@@ -265,14 +261,13 @@ public class Main {
         System.out.println("\t 3 - To view stock items");
         System.out.println("\t 4 - To open stock item menu");
         System.out.println("\t 5 - To quit the application.");
-        System.out.println("\n");
 	}
 	
 	public static boolean login(String password) {
 		int lockoutCount = 5;
 		scanner.nextLine();
 		while (lockoutCount > 0) {
-			System.out.println("Enter employee password");
+			System.out.println("\nEnter employee password");
 			String entry = scanner.nextLine();
 			if(entry.equals(password)) {
 				return true;
@@ -361,7 +356,7 @@ public class Main {
 				System.out.println("Do you want to update " + name + "? (Y/N)");
 				String answer = scanner.nextLine();
 				if(answer.toUpperCase().equals("Y")) {
-					System.out.println("Update Under Construction");
+					stockItemMenu(stockList.get(nameConverted));
 					valid = true;
 				} else if (answer.toUpperCase().equals("N")){
 					System.out.println("Back to stock menu");
@@ -372,5 +367,5 @@ public class Main {
 			}
 		}
 	}
-
+	
 }

@@ -12,38 +12,38 @@ public class Main {
 	
 	public static void main(String[] args) {
 
-//		StockItem temp = new StockItem("Bread", 0.86, 100);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Car", 12.50, 20);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Batarang", 3.10, 500);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Pipe Weed", 30.25, 90);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("AR-15", 300.00, 43);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Sweet Roll", 1.00, 359);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Muscle Milk", 99.99, 35);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Pizza Rolls", 9.45, 700);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Tidepods", 39.99, 468);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Nukacola", 3.99, 635);
-//		stockList.addStock(temp);
-//		
-//		temp = new StockItem("Healing Herb", 25.99, 185);
-//		stockList.addStock(temp);
+		StockItem temp = new StockItem("Bread", 0.86, 100);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Car", 12.50, 20);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Batarang", 3.10, 500);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Pipe Weed", 30.25, 90);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("AR-15", 300.00, 43);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Sweet Roll", 1.00, 359);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Muscle Milk", 99.99, 35);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Pizza Rolls", 9.45, 700);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Tidepods", 39.99, 468);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Nukacola", 3.99, 635);
+		stockList.addStock(temp);
+		
+		temp = new StockItem("Healing Herb", 25.99, 185);
+		stockList.addStock(temp);
 	
 //		for(String s: stockList.Items().keySet()) {
 //			System.out.println(s);
@@ -109,7 +109,7 @@ public class Main {
 				System.out.println(customerBasket);
 				break;
 			case 2:
-				System.out.println("Under Construction");
+				basketMenu();
 				break;
 			case 3:
 				System.out.println(stockList);
@@ -198,6 +198,10 @@ public class Main {
 	}
 	
 	public static void printBasketItemInstructions() {
+
+	}
+	
+	public static void printBasketInstructions() {
 		System.out.println("Your 🛍 Stop and Drop! Basket");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
@@ -286,16 +290,6 @@ public class Main {
 		}
 	}
 	
-	public static void printBasketInstructions() {
-        System.out.println("\nPress: ");
-        System.out.println("\t 0 - To view options");
-        System.out.println("\t 1 - To view your basket items");
-        System.out.println("\t 2 - To open your basket");
-        System.out.println("\t 3 - To view stock items");
-        System.out.println("\t 4 - To open stock item menu");
-        System.out.println("\t 5 - To quit the application.");
-	}
-	
 	public static boolean login(String password) {
 		int lockoutCount = 5;
 		scanner.nextLine();
@@ -347,7 +341,7 @@ public class Main {
 		
 		boolean valid = false;
 		while (!valid) {
-			System.out.println("Enter quantity to be added. You can use negative numbers to substract from your cart.");
+			System.out.println("Enter quantity of item. You can use negative numbers to substract from your cart.");
 			int newQuantity = scanner.nextInt();
 			
 			quantity += newQuantity;
@@ -362,14 +356,15 @@ public class Main {
 				} else if (quantity == 0) {
 					boolean choice = false;
 					while (!choice) {
-						System.out.println("Your quantity is zero. Do you wish to remove item from cart? (Y/N)");
+						System.out.println("Your quantity is zero. Do you wish to remove this item from cart? (Y/N)");
 						String answer = scanner.nextLine();
 						if(answer.toUpperCase().equals("Y")) {
-							
+							if(basket.removeItem(stockItem)) {
+								System.out.println("\n" + stockItem.getName() + " removed");
+							}
 							valid = true;
 						} else if (answer.toUpperCase().equals("N")){
 							System.out.println("Back to basket");
-							choice = true;
 						} else {
 							System.out.println("Not a valid entry");
 						}
@@ -377,11 +372,11 @@ public class Main {
 				} else {
 					System.out.println("You cannot have less than zero quantity");
 				}
-
 			} else {
 				System.out.println("There is not enough of that item in stock");
 			}
 		}
+		return 0;
 	}
 	
 	public static double checkout(Basket basket) {

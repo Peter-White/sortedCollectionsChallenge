@@ -23,10 +23,6 @@ public class Basket {
 		}
 		return 0;
 	}
-
-	public void name() {
-		
-	}
 	
 	public String getName() {
 		return name;
@@ -34,6 +30,13 @@ public class Basket {
 
 	public Map<StockItem, Integer> Items() {
 		return Collections.unmodifiableMap(list);
+	}
+	
+	public boolean removeItem(StockItem stockItem) {
+		if(stockItem != null) {
+			list.remove(stockItem);
+		}
+		return false;
 	}
 
 	@Override

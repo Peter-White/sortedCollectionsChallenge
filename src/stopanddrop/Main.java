@@ -12,41 +12,41 @@ public class Main {
 	
 	public static void main(String[] args) {
 
-		StockItem temp = new StockItem("Bread", 0.86, 100);
+		StockItem temp = new StockItem("BREAD", 0.86, 100);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Car", 12.50, 20);
+		temp = new StockItem("CAR", 12.50, 20);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Batarang", 3.10, 500);
+		temp = new StockItem("BATARANG", 3.10, 500);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Pipe Weed", 30.25, 90);
+		temp = new StockItem("PIPE_WEED", 30.25, 90);
 		stockList.addStock(temp);
 		
 		temp = new StockItem("AR-15", 300.00, 43);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Sweet Roll", 1.00, 359);
+		temp = new StockItem("SWEET_ROLL", 1.00, 359);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Muscle Milk", 99.99, 35);
+		temp = new StockItem("MUSCLE_MILK", 99.99, 35);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Pizza Rolls", 9.45, 700);
+		temp = new StockItem("PIZZA_ROLL", 9.45, 700);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Tidepods", 39.99, 468);
+		temp = new StockItem("TIDEPODS", 39.99, 468);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Nukacola", 3.99, 635);
+		temp = new StockItem("NUKACOLA", 3.99, 635);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("Healing Herb", 25.99, 185);
+		temp = new StockItem("HEALING_HERB", 25.99, 185);
 		stockList.addStock(temp);
 	
-		stockList.get("Healing Herb").setPrice(30.00);
-		System.out.println(stockList.get("Healing Herb"));
+		stockList.get("HEALING_HERB").setPrice(30.00);
+		System.out.println(stockList.get("HEALING_HERB"));
 //		for(String s: stockList.Items().keySet()) {
 //			System.out.println(s);
 //		}
@@ -79,11 +79,11 @@ public class Main {
 //			System.out.println(price.getKey() + " costs " + price.getValue());
 //		}
 		
-//		System.out.println("Enter your name");
-//		String name = scanner.nextLine();
-//		customerBasket = new Basket(name);
-//		System.out.println("\nHello " + customerBasket.getName() + "!\n");
-//		mainMenu();
+		System.out.println("Enter your name");
+		String name = scanner.nextLine();
+		customerBasket = new Basket(name);
+		System.out.println("\nHello " + customerBasket.getName() + "!\n");
+		mainMenu();
 	}
 	
 	public static void printMainInstructions() {
@@ -93,7 +93,7 @@ public class Main {
         System.out.println("\t 1 - To view your basket items");
         System.out.println("\t 2 - To open your basket");
         System.out.println("\t 3 - To view stock items");
-        System.out.println("\t 4 - To open stock item menu");
+        System.out.println("\t 4 - To open stock item menu (Employees Only)");
         System.out.println("\t 5 - To quit the application");
 	}
 	
@@ -127,75 +127,6 @@ public class Main {
 			default:
 				break;
 			}
-		}
-	}
-	
-	public static void printStockInstructions() {
-		System.out.println("\n🛍 Stop and Drop! Item Stock. Employees Only.");
-        System.out.println("\nPress: ");
-        System.out.println("\t 0 - To view options");
-        System.out.println("\t 1 - To view all stock items");
-        System.out.println("\t 2 - To add to stock");
-        System.out.println("\t 3 - To view item");
-        System.out.println("\t 4 - To remove item from stock");
-        System.out.println("\t 5 - To go back to main");
-	}
-	
-	public static void stockMenu() {
-		boolean back = false;
-		if(employee) {
-			System.out.println("\nWelcome 🛍 Stop and Drop! Employee\n");
-			printStockInstructions();
-			while (!back) {
-				System.out.println("\nEnter your choice:");
-				int choice = scanner.nextInt();
-				switch (choice) {
-				case 0:
-					printStockInstructions();
-					break;
-				case 1:
-					System.out.println(stockList);
-					break;
-				case 2:
-					addToStock();
-					break;
-				case 3:
-					boolean valid = false;
-					while (!valid) {
-						scanner.nextLine();
-						System.out.println("Enter item name");
-						String name = scanner.nextLine();
-						if(stockList.Items().containsKey(
-								 name.toUpperCase().replaceAll(" ", "_"))) {
-							stockItemMenu(stockList.get(name));
-						}
-					}
-					
-					break;
-				case 4:
-					System.out.println("Under Construction");
-					break;
-				case 5:
-					System.out.println("Back to main");
-					back = true;
-					break;
-				default:
-					break;
-				}
-			}
-		} else {
-			if(!lockout) {
-				boolean entrance = login("Succulent");
-				if(entrance) {
-					employee = true;
-					stockMenu();
-				} else {
-					System.out.println("You have been locked out");
-				}				
-			} else {
-				System.out.println("You cannot access this page. EVER!");
-			}
-			mainMenu();
 		}
 	}
 	
@@ -246,6 +177,88 @@ public class Main {
 		}
 	}
 	
+	public static void printStockInstructions() {
+		System.out.println("\n🛍 Stop and Drop! Item Stock.");
+        System.out.println("\nPress: ");
+        System.out.println("\t 0 - To view options");
+        System.out.println("\t 1 - To view all stock items");
+        System.out.println("\t 2 - To add to stock");
+        System.out.println("\t 3 - To view item");
+        System.out.println("\t 4 - To remove item from stock");
+        System.out.println("\t 5 - To go back to main");
+	}
+	
+	public static void stockMenu() {
+		boolean back = false;
+		if(employee) {
+			System.out.println("\nWelcome 🛍 Stop and Drop! Employee\n");
+			printStockInstructions();
+			while (!back) {
+				System.out.println("\nEnter your choice:");
+				int choice = scanner.nextInt();
+				switch (choice) {
+				case 0:
+					printStockInstructions();
+					break;
+				case 1:
+					System.out.println(stockList);
+					break;
+				case 2:
+					addToStock();
+					break;
+				case 3:
+					scanner.nextLine();
+					boolean valid = false;
+					while (!valid) {
+						System.out.println("Enter item name");
+						String name = scanner.nextLine();
+						name = nameCapitalized(name);
+						if(stockList.Items().containsKey(name)) {
+							stockItemMenu(stockList.get(name));
+							valid = true;
+						} else {
+							System.out.println("This item is not in stock");
+						}
+					}
+					break;
+				case 4:
+					scanner.nextLine();
+					System.out.println("Enter the item to be removed");
+					String name = scanner.nextLine();
+					
+					name = nameCapitalized(name);
+					
+					if(stockList.get(name) != null) {
+						removeFromStock(stockList.get(name));
+					} else {
+						System.out.println("Item is not in stock");
+					}
+
+					break;
+				case 5:
+					System.out.println("Back to main");
+					back = true;
+					break;
+				default:
+					break;
+				}
+			}
+		} else {
+			if(!lockout) {
+				boolean entrance = login("Succulent");
+				if(entrance) {
+					employee = true;
+					stockMenu();
+				} else {
+					System.out.println("You have been locked out");
+				}				
+			} else {
+				System.out.println("You cannot access this page. EVER!");
+			}
+			mainMenu();
+		}
+	}
+	
 	public static void printStockItemMenu(String name) {
 		System.out.println("🛍 Stop and Drop! Stock Item " + name);
         System.out.println("\nPress: ");
@@ -260,7 +273,7 @@ public class Main {
 	public static void stockItemMenu(StockItem item) {
 		boolean back = false;
 		if(employee) {
-			printStockInstructions();
+			printStockItemMenu(item.getName());
 			while (!back) {
 				System.out.println("\nEnter your choice:");
 				int choice = scanner.nextInt();
@@ -272,13 +285,13 @@ public class Main {
 					System.out.println(item.getName());
 					break;
 				case 2:
-					
+					System.out.println("Under Construction");
 					break;
 				case 3:
 					System.out.println("Under Construction");
 					break;
 				case 4:
-					stockList.deleteItem(item);
+					removeFromStock(item);
 					break;
 				case 5:
 					System.out.println("Back to stock menu");
@@ -317,7 +330,7 @@ public class Main {
 		
 		int quantity = 0;
 		
-		StockItem stockItem = stockList.get(item.toUpperCase().replaceAll(" ", "_"));
+		StockItem stockItem = stockList.get(nameCapitalized(item));
 		
 		if(stockItem == null) {
 			System.out.println("We don't sell " + item);
@@ -328,7 +341,7 @@ public class Main {
 			boolean valid = false;
 			while (!valid) {
 				System.out.println(item + " is already in your basket with a quantity of " + basket.Items().get(stockItem));
-				System.out.println("Would you like to add change the quantity? (Y/N)");
+				System.out.println("Would you like to add to the existing quantity? (Y/N)");
 				String answer = scanner.nextLine();
 				if(answer.toUpperCase().equals("Y")) {
 					quantity = basket.Items().get(stockItem);
@@ -389,11 +402,33 @@ public class Main {
 		stockList.get(item.getName()).setPrice(price);
 	}
 	
+	public static void removeFromStock(StockItem item) {
+		boolean valid = false;
+		while (!valid) {
+			System.out.println("Are you sure you want to remove " + item.getName() + 
+					" from stock? (Y/N)");
+			String answer = scanner.nextLine();
+			if(answer.toUpperCase().equals("Y")) {
+				if(stockList.deleteItem(item)) {
+					System.out.println(item.getName() + " has been removed from stock");
+				} else {
+					System.out.println("Item not deleted");
+				}
+				valid = true;
+			} else if (answer.toUpperCase().equals("N")){
+				System.out.println("Back to basket");
+				valid = true;
+			} else {
+				System.out.println("Not a valid entry");
+			}
+		}
+	}
+	
 	public static void addToStock() {
 		scanner.nextLine();
 		System.out.println("\nEnter the item name to add:");
 		String name = scanner.nextLine();
-		String nameConverted = name.toUpperCase().replaceAll(" ", "_");
+		String nameConverted = nameCapitalized(name);
 		if(!stockList.Items().containsKey(nameConverted)) {
 			// Set Price
 			double price = -0.01;
@@ -446,5 +481,9 @@ public class Main {
 		}
 		
 		return total;
+	}
+	
+	public static String nameCapitalized(String name) {
+		return name.toUpperCase().replaceAll(" ", "_");
 	}
 }

@@ -46,7 +46,7 @@ public class StockItem implements Comparable<StockItem> {
 		if(price > 0.0) {
 			this.price = price;
 		} else {
-			System.out.println("No free shit allowed");
+			System.out.println("No free items allowed");
 		}
 	}
 	
@@ -83,7 +83,9 @@ public class StockItem implements Comparable<StockItem> {
 
 	@Override
 	public String toString() {
-		return "Name: " + this.name + " - Price: " + String.format("%.2f", this.price) + " - Quantity: " + this.quanityStock;
+		return "Name: " + this.name + " - Price: " + 
+				String.format("%.2f", this.price) + " - Quantity: " + 
+				this.quanityStock;
 	}
 
 	@Override

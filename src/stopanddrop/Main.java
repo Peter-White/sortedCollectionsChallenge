@@ -45,27 +45,29 @@ public class Main {
 		temp = new StockItem("Healing Herb", 25.99, 185);
 		stockList.addStock(temp);
 	
+		stockList.get("Healing Herb").setPrice(30.00);
+		System.out.println(stockList.get("Healing Herb"));
 //		for(String s: stockList.Items().keySet()) {
 //			System.out.println(s);
 //		}
 		
 //		System.out.println();
 //		Basket batmansBasket = new Basket("Bruce Wayne");
-//		addToBasket(batmansBasket, "AR-15", 25);
+//		addToBasket(customerBasket, "AR-15", 25);
 //		
-//		addToBasket(batmansBasket, "Batarang", 100);
+//		addToBasket(customerBasket, "Batarang", 100);
 //		
-//		addToBasket(batmansBasket, "Pizza Rolls", 700);
+//		addToBasket(customerBasket, "Pizza Rolls", 700);
 //		
-//		addToBasket(batmansBasket, "Healing Herb", 700);
+//		addToBasket(customerBasket, "Healing Herb", 700);
 //		
-//		addToBasket(batmansBasket, "Muscle Milk", 30);
+//		addToBasket(customerBasket, "Muscle Milk", 30);
 //		
-//		addToBasket(batmansBasket, "Batarang", 100);
+//		addToBasket(customerBasket, "Batarang", 100);
 //		
-//		addToBasket(batmansBasket, "Rubber Nipple", 2);
+//		addToBasket(customerBasket, "Rubber Nipple", 2);
 //		
-//		addToBasket(batmansBasket, "Tidepods", 360);
+//		addToBasket(customerBasket, "Tidepods", 360);
 		
 //		temp = new StockItem("Polybius", 567.32);
 //		stockList.Items().put(temp.getName(), temp);
@@ -77,11 +79,11 @@ public class Main {
 //			System.out.println(price.getKey() + " costs " + price.getValue());
 //		}
 		
-		System.out.println("Enter your name");
-		String name = scanner.nextLine();
-		customerBasket = new Basket(name);
-		System.out.println("\nHello " + customerBasket.getName() + "!\n");
-		mainMenu();
+//		System.out.println("Enter your name");
+//		String name = scanner.nextLine();
+//		customerBasket = new Basket(name);
+//		System.out.println("\nHello " + customerBasket.getName() + "!\n");
+//		mainMenu();
 	}
 	
 	public static void printMainInstructions() {
@@ -205,10 +207,12 @@ public class Main {
 		System.out.println("Your 🛍 Stop and Drop! Basket");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
-        System.out.println("\t 1 - To add to basket");
-        System.out.println("\t 2 - To update quantity of item");
-        System.out.println("\t 3 - To remove from basket");
-        System.out.println("\t 4 - To go back to basket");
+        System.out.println("\t 1 - To view all stock items");
+        System.out.println("\t 2 - To add to basket");
+        System.out.println("\t 3 - To update quantity of item");
+        System.out.println("\t 4 - To remove from basket");
+        System.out.println("\t 5 - To checkout");
+        System.out.println("\t 6 - To go back to basket");
 	}
 	
 	public static void basketMenu() {
@@ -225,7 +229,7 @@ public class Main {
 				System.out.println(stockList);
 				break;
 			case 2:
-				addToStock();
+				addToBasket(customerBasket);
 				break;
 			case 3:
 				System.out.println("Under Construction");
@@ -234,6 +238,9 @@ public class Main {
 				System.out.println("Under Construction");
 				break;
 			case 5:
+				System.out.println("Under Construction");
+				break;
+			case 6:
 				System.out.println("Back to main");
 				back = true;
 				break;
@@ -266,7 +273,7 @@ public class Main {
 					printStockItemMenu(item.getName());
 					break;
 				case 1:
-					System.out.println(stockList);
+					System.out.println(item.getName());
 					break;
 				case 2:
 					addToStock();

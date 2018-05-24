@@ -42,11 +42,15 @@ public class StockItem implements Comparable<StockItem> {
 		reserved.clear();
 	}
 
-	public void setPrice(double price) {
-		if(price > 0.0) {
+	public boolean setPrice(double price) {
+		if(price >= 0.0) {
+			System.out.print(this.price + " is now ");
 			this.price = price;
+			System.out.println(this.price);
+			return true;
 		} else {
-			System.out.println("No free items allowed");
+			System.out.println("Cannot have a price less than zero");
+			return false;
 		}
 	}
 	

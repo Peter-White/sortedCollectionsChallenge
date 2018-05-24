@@ -167,7 +167,7 @@ public class Main {
 						String name = scanner.nextLine();
 						if(stockList.Items().containsKey(
 								 name.toUpperCase().replaceAll(" ", "_"))) {
-							
+							stockItemMenu(stockList.get(name));
 						}
 					}
 					
@@ -199,18 +199,14 @@ public class Main {
 		}
 	}
 	
-	public static void printBasketItemInstructions() {
-
-	}
-	
 	public static void printBasketInstructions() {
 		System.out.println("Your 🛍 Stop and Drop! Basket");
         System.out.println("\nPress: ");
         System.out.println("\t 0 - To view options");
         System.out.println("\t 1 - To view all stock items");
         System.out.println("\t 2 - To add to basket");
-        System.out.println("\t 3 - To update quantity of item");
-        System.out.println("\t 4 - To remove from basket");
+        System.out.println("\t 3 - To update quantity of an item");
+        System.out.println("\t 4 - To remove an item from basket");
         System.out.println("\t 5 - To checkout");
         System.out.println("\t 6 - To go back to basket");
 	}
@@ -223,7 +219,7 @@ public class Main {
 			int choice = scanner.nextInt();
 			switch (choice) {
 			case 0:
-				printBasketItemInstructions();
+				printBasketInstructions();
 				break;
 			case 1:
 				System.out.println(stockList);
@@ -238,7 +234,7 @@ public class Main {
 				System.out.println("Under Construction");
 				break;
 			case 5:
-				System.out.println("Under Construction");
+				checkout(customerBasket);
 				break;
 			case 6:
 				System.out.println("Back to main");
@@ -276,16 +272,16 @@ public class Main {
 					System.out.println(item.getName());
 					break;
 				case 2:
-					addToStock();
+					
 					break;
 				case 3:
 					System.out.println("Under Construction");
 					break;
 				case 4:
-					System.out.println("Under Construction");
+					stockList.deleteItem(item);
 					break;
 				case 5:
-					System.out.println("Back to main");
+					System.out.println("Back to stock menu");
 					back = true;
 					break;
 				default:
@@ -386,15 +382,11 @@ public class Main {
 		return 0;
 	}
 	
-	public static double checkout(Basket basket) {
-		double total = 0.00;
-		// retrieve the item from stock list
-		for (Map.Entry<StockItem, Integer> item : basket.Items().entrySet()) {
-			stockList.sellStock(item.getKey().getName(), item.getValue());
-			total += (item.getValue() * item.getKey().getPrice());
-		}
+	public static void setNewPrice(StockItem item) {
+		System.out.println("Enter the new price for " + item.getName());
+		double price = scanner.nextDouble();
 		
-		return total;
+		stockList.get(item.getName()).setPrice(price);
 	}
 	
 	public static void addToStock() {
@@ -442,5 +434,17 @@ public class Main {
 				}
 			}
 		}
+	}
+	
+	public static double checkout(Basket basket) {
+		double total = 0.00;
+		// retrieve the item from stock list
+		for (Map.Entry<StockItem, Integer> item : basket.Items().entrySet()) {
+			stockList.sellStock(item.getKey().getName(), item.getValue());
+			total += (item.getValue() * item.getKey().getPrice());
+			basket.removeItem(item.getKey());
+		}
+		
+		return total;
 	}
 }

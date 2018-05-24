@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class StockList {
 	private final Map<String, StockItem> list;
@@ -27,6 +28,11 @@ public class StockList {
 			return item.quantityInStock();
 		}
 		return 0;
+	}
+	
+	public boolean deleteItem(StockItem item) {
+		list.remove(item.getName());
+		return true;
 	}
 	
 	public int sellStock(String item, int quantity) {

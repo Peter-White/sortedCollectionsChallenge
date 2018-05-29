@@ -11,70 +11,70 @@ public class Main {
 	private static boolean lockout = false;
 	
 	public static void main(String[] args) {
-
-		StockItem temp = new StockItem("BREAD", 0.86, 100);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("CAR", 12.50, 20);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("BATARANG", 3.10, 500);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("PIPE_WEED", 30.25, 90);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("SWEET_ROLL", 1.00, 359);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("MUSCLE_MILK", 99.99, 35);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("PIZZA_ROLL", 9.45, 700);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("TIDEPODS", 39.99, 468);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("NUKACOLA", 3.99, 635);
-		stockList.addStock(temp);
-		
-		temp = new StockItem("HEALING_HERB", 25.99, 185);
-		stockList.addStock(temp);
-	
-		stockList.get("HEALING_HERB").setPrice(30.00);
-		System.out.println(stockList.get("HEALING_HERB"));
-//		for(String s: stockList.Items().keySet()) {
-//			System.out.println(s);
-//		}
-		
-//		System.out.println();
-//		Basket batmansBasket = new Basket("Bruce Wayne");
-//		addToBasket(customerBasket, "AR-15", 25);
+//
+//		StockItem temp = new StockItem("BREAD", 0.86, 100);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Batarang", 100);
+//		temp = new StockItem("CAR", 12.50, 20);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Pizza Rolls", 700);
+//		temp = new StockItem("BATARANG", 3.10, 500);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Healing Herb", 700);
+//		temp = new StockItem("PIPE_WEED", 30.25, 90);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Muscle Milk", 30);
+//		temp = new StockItem("SWEET_ROLL", 1.00, 359);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Batarang", 100);
+//		temp = new StockItem("MUSCLE_MILK", 99.99, 35);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Rubber Nipple", 2);
+//		temp = new StockItem("PIZZA_ROLL", 9.45, 700);
+//		stockList.addStock(temp);
 //		
-//		addToBasket(customerBasket, "Tidepods", 360);
-		
-//		temp = new StockItem("Polybius", 567.32);
-//		stockList.Items().put(temp.getName(), temp);
-		
-//		stockList.Items().get("Car").adjustStock(2000);
-//		stockList.get("Car").adjustStock(-1000);
-//		System.out.println(stockList);
-//		for (Map.Entry<String, Double> price: stockList.PriceList().entrySet()) {
-//			System.out.println(price.getKey() + " costs " + price.getValue());
-//		}
+//		temp = new StockItem("TIDEPODS", 39.99, 468);
+//		stockList.addStock(temp);
+//		
+//		temp = new StockItem("NUKACOLA", 3.99, 635);
+//		stockList.addStock(temp);
+//		
+//		temp = new StockItem("HEALING_HERB", 25.99, 185);
+//		stockList.addStock(temp);
+//	
+//		stockList.get("HEALING_HERB").setPrice(30.00);
+//		System.out.println(stockList.get("HEALING_HERB"));
+////		for(String s: stockList.Items().keySet()) {
+////			System.out.println(s);
+////		}
+//		
+////		System.out.println();
+////		Basket batmansBasket = new Basket("Bruce Wayne");
+////		addToBasket(customerBasket, "AR-15", 25);
+////		
+////		addToBasket(customerBasket, "Batarang", 100);
+////		
+////		addToBasket(customerBasket, "Pizza Rolls", 700);
+////		
+////		addToBasket(customerBasket, "Healing Herb", 700);
+////		
+////		addToBasket(customerBasket, "Muscle Milk", 30);
+////		
+////		addToBasket(customerBasket, "Batarang", 100);
+////		
+////		addToBasket(customerBasket, "Rubber Nipple", 2);
+////		
+////		addToBasket(customerBasket, "Tidepods", 360);
+//		
+////		temp = new StockItem("Polybius", 567.32);
+////		stockList.Items().put(temp.getName(), temp);
+//		
+////		stockList.Items().get("Car").adjustStock(2000);
+////		stockList.get("Car").adjustStock(-1000);
+////		System.out.println(stockList);
+////		for (Map.Entry<String, Double> price: stockList.PriceList().entrySet()) {
+////			System.out.println(price.getKey() + " costs " + price.getValue());
+////		}
 		
 		System.out.println("Enter your name:");
 		String name = scanner.nextLine();

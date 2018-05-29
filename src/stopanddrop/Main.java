@@ -170,7 +170,9 @@ public class Main {
 				removeFromBasket();
 				break;
 			case 6:
-				checkout(customerBasket);
+				double sumTotal = checkout(customerBasket);
+				System.out.println("Your total is " + sumTotal);
+				System.out.println("Please be sure to take your receipt");
 				break;
 			case 7:
 				System.out.println("Back to main");
@@ -297,8 +299,8 @@ public class Main {
 		double total = 0.00;
 		// retrieve the item from stock list
 		for (Map.Entry<StockItem, Integer> item : basket.Items().entrySet()) {
-			stockList.sellStock(item.getKey().getName(), item.getValue());
-			total += (item.getValue() * item.getKey().getPrice());
+			double cost = stockList.sellStock(basket, item.getKey().getName());
+			total += cost;
 			basket.removeItem(item.getKey());
 		}
 		

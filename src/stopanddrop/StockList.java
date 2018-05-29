@@ -2,9 +2,7 @@ package stopanddrop;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class StockList {
 	private final Map<String, StockItem> list;
@@ -35,13 +33,13 @@ public class StockList {
 		return true;
 	}
 	
-	public int sellStock(String item, int quantity) {
+	public double sellStock(Basket basket, String item) {
 		StockItem inStockItem = list.getOrDefault(item, null);
 		
-		if((inStockItem != null) && (inStockItem.quantityInStock() >= quantity) 
-				&& (quantity > 0)) {
-			inStockItem.adjustStock(-quantity);
-			return quantity;
+		if(inStockItem != null) {
+			int quantity = inStockItem.sellItem(basket);
+			double cost = quantity * inStockItem.getPrice();
+			return cost;
 		}
 		return 0;
 	}

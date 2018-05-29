@@ -65,6 +65,23 @@ public class StockItem implements Comparable<StockItem> {
 			this.quanityStock = newQuantity;
 		}
 	}
+	
+	public int sellItem(Basket basket) {
+		int reserve = reserved.getOrDefault(basket, 0);
+		
+		if(reserve != 0) {
+			if((quanityStock - reserve) >= 0) {
+				quanityStock -= reserve;
+				reserved.remove(basket);
+				return reserve;
+			} else {
+				System.out.println("Sorry there is not enough in stock to sell");
+			}
+		}
+		
+		System.out.println("Transaction cannot be completed");
+		return 0;
+	}
 
 	public int quantityInStock() {
 		return quanityStock;

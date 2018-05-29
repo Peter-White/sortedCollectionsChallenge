@@ -183,7 +183,7 @@ public class Main {
 	
 	public static int addToBasket(Basket basket) {
 		scanner.nextLine();
-		System.out.println("\nEnter item from the stock list to add to your basket");
+		System.out.println("\nEnter item from the stock list to add to your basket:");
 		String item = scanner.nextLine();
 		
 		int quantity = 0;
@@ -199,7 +199,7 @@ public class Main {
 			boolean valid = false;
 			while (!valid) {
 				System.out.println(item + " is already in your basket with a quantity of " + basket.Items().get(stockItem));
-				System.out.println("Would you like to add to the existing quantity? (Y/N)");
+				System.out.println("Would you like to add to the existing quantity? (Y/N):");
 				String answer = scanner.nextLine();
 				if(answer.toUpperCase().equals("Y")) {
 					quantity = basket.Items().get(stockItem);
@@ -215,7 +215,7 @@ public class Main {
 		
 		boolean valid = false;
 		while (!valid) {
-			System.out.println("Enter quantity of item. You can use negative numbers to substract from your cart.");
+			System.out.println("Enter quantity of item. You can use negative numbers to substract from your cart:");
 			int newQuantity = scanner.nextInt();
 			
 			quantity += newQuantity;
@@ -231,7 +231,7 @@ public class Main {
 				} else if (quantity == 0) {
 					boolean choice = false;
 					while (!choice) {
-						System.out.println("Your quantity is zero. Do you wish to remove this item from cart? (Y/N)");
+						System.out.println("Your quantity is zero. Do you wish to remove this item from cart? (Y/N):");
 						String answer = scanner.nextLine();
 						if(answer.toUpperCase().equals("Y")) {
 							if(basket.removeItem(stockItem)) {
@@ -256,7 +256,7 @@ public class Main {
 	
 	public static void removeFromBasket() {
 		scanner.nextLine();
-		System.out.println("Enter name of the item to remove");
+		System.out.println("Enter name of the item to remove:");
 		String name = scanner.nextLine();
 		
 		name = nameCapitalized(name);
@@ -265,7 +265,7 @@ public class Main {
 		if(customerBasket.Items().containsKey(item)) {
 			removeFromBasket(item);
 		} else {
-			System.out.println("This item is not your ");
+			System.out.println("This item is not your basket");
 		}
 	}
 	
@@ -273,7 +273,7 @@ public class Main {
 		boolean valid = false;
 		while (!valid) {
 			System.out.println("Are you sure you want to remove " + item.getName() + 
-					" from your basket? (Y/N)");
+					" from your basket? (Y/N):");
 			String answer = scanner.nextLine();
 			if(answer.toUpperCase().equals("Y")) {
 				if(customerBasket.removeItem(item)) {
@@ -365,7 +365,7 @@ public class Main {
 	
 	public static void removeFromStock() {
 		scanner.nextLine();
-		System.out.println("Enter the item to be removed");
+		System.out.println("Enter the item to be removed:");
 		String name = scanner.nextLine();
 		
 		name = nameCapitalized(name);
@@ -429,7 +429,7 @@ public class Main {
 		int lockoutCount = 5;
 		scanner.nextLine();
 		while (lockoutCount > 0) {
-			System.out.println("\nEnter employee password");
+			System.out.println("\nEnter employee password:");
 			String entry = scanner.nextLine();
 			if(entry.equals(password)) {
 				return true;
@@ -443,7 +443,7 @@ public class Main {
 	}
 	
 	public static void setNewPrice(StockItem item) {
-		System.out.println("Enter the new price for " + item.getName());
+		System.out.println("Enter the new price for " + item.getName() + ":");
 		double price = scanner.nextDouble();
 		
 		stockList.get(item.getName()).setPrice(price);
@@ -454,7 +454,7 @@ public class Main {
 		boolean valid = false;
 		while (!valid) {
 			System.out.println("Are you sure you want to remove " + item.getName() + 
-					" from stock? (Y/N)");
+					" from stock? (Y/N):");
 			String answer = scanner.nextLine();
 			if(answer.toUpperCase().equals("Y")) {
 				if(stockList.deleteItem(item)) {
@@ -481,7 +481,7 @@ public class Main {
 			// Set Price
 			double price = -0.01;
 			while(price < 0.00) {
-				System.out.println("\nEnter the price of the item");
+				System.out.println("\nEnter the price of the item:");
 				price = scanner.nextDouble();
 				if(price < 0.00) {
 					System.out.println("Cannot have a price less than zero");
@@ -490,7 +490,7 @@ public class Main {
 			// Set quantity
 			int quantity = 0;
 			while (quantity < 1) {
-				System.out.println("\nEnter the quantity for " + name);
+				System.out.println("\nEnter the quantity for " + name + ":");
 				quantity = scanner.nextInt();
 				if(quantity < 1) {
 					System.out.println("\nCannot have a quantity less than 1");
@@ -504,7 +504,7 @@ public class Main {
 			System.out.println(stockList.get(nameConverted));
 			boolean valid = false;
 			while (!valid) {
-				System.out.println("Do you want to update " + name + "? (Y/N)");
+				System.out.println("Do you want to update " + name + "? (Y/N):");
 				String answer = scanner.nextLine();
 				if(answer.toUpperCase().equals("Y")) {
 					stockItemMenu(stockList.get(nameConverted));

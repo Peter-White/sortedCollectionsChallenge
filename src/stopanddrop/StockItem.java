@@ -35,6 +35,10 @@ public class StockItem implements Comparable<StockItem> {
 		return price;
 	}
 	
+	public int getReservedSize() {
+		return reserved.size();
+	}
+	
 	public Map<Basket, Integer> getReserved() {
 		return Collections.unmodifiableMap(reserved);
 	}
@@ -45,6 +49,14 @@ public class StockItem implements Comparable<StockItem> {
 	
 	public void addToReserve(Basket basket, int quantity) {
 		reserved.put(basket, quantity);
+	}
+	
+	public boolean removeFromReserve(Basket basket) {
+		if((basket != null) && (reserved.containsKey(basket))) {
+			reserved.remove(basket);
+			return true;
+		}
+		return false;
 	}
 
 	public boolean setPrice(double price) {

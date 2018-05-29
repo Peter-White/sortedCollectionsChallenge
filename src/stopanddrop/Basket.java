@@ -33,7 +33,10 @@ public class Basket {
 	
 	public boolean removeItem(StockItem stockItem) {
 		if(stockItem != null) {
-			list.remove(stockItem);
+			if(stockItem.removeFromReserve(this)) {
+				list.remove(stockItem);
+				return true;
+			}
 		}
 		return false;
 	}

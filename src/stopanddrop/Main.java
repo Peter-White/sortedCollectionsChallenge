@@ -24,9 +24,6 @@ public class Main {
 		temp = new StockItem("PIPE_WEED", 30.25, 90);
 		stockList.addStock(temp);
 		
-		temp = new StockItem("AR-15", 300.00, 43);
-		stockList.addStock(temp);
-		
 		temp = new StockItem("SWEET_ROLL", 1.00, 359);
 		stockList.addStock(temp);
 		
@@ -273,7 +270,6 @@ public class Main {
 	}
 	
 	public static void removeFromBasket(StockItem item) {
-		scanner.nextLine();
 		boolean valid = false;
 		while (!valid) {
 			System.out.println("Are you sure you want to remove " + item.getName() + 

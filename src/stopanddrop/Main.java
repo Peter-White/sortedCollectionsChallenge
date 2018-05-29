@@ -79,13 +79,13 @@ public class Main {
 //			System.out.println(price.getKey() + " costs " + price.getValue());
 //		}
 		
-		System.out.println("Enter your name");
+		System.out.println("Enter your name:");
 		String name = scanner.nextLine();
 		customerBasket = new Basket(name);
 		System.out.println("\nHello " + customerBasket.getName() + "!\n");
 		mainMenu();
 	}
-	
+	// Main menu
 	public static void printMainInstructions() {
 		System.out.println("Welcome to 🛍 Stop and Drop Online!");
         System.out.println("\nPress: ");
@@ -130,6 +130,7 @@ public class Main {
 		}
 	}
 	
+	// Basket menu and options
 	public static void printBasketInstructions() {
 		System.out.println("Your 🛍 Stop and Drop! Basket");
         System.out.println("\nPress: ");
@@ -181,6 +182,130 @@ public class Main {
 		}
 	}
 	
+	public static int addToBasket(Basket basket) {
+		scanner.nextLine();
+		System.out.println("\nEnter item from the stock list to add to your basket");
+		String item = scanner.nextLine();
+		
+		int quantity = 0;
+		
+		StockItem stockItem = stockList.get(nameCapitalized(item));
+		
+		if(stockItem == null) {
+			System.out.println("We don't sell " + item);
+			return 0;
+		}
+		
+		if(basket.Items().containsKey(stockItem)) {
+			boolean valid = false;
+			while (!valid) {
+				System.out.println(item + " is already in your basket with a quantity of " + basket.Items().get(stockItem));
+				System.out.println("Would you like to add to the existing quantity? (Y/N)");
+				String answer = scanner.nextLine();
+				if(answer.toUpperCase().equals("Y")) {
+					quantity = basket.Items().get(stockItem);
+					valid = true;
+				} else if (answer.toUpperCase().equals("N")){
+					System.out.println("Back to basket");
+					return 0;
+				} else {
+					System.out.println("Not a valid entry");
+				}
+			}
+		}
+		
+		boolean valid = false;
+		while (!valid) {
+			System.out.println("Enter quantity of item. You can use negative numbers to substract from your cart.");
+			int newQuantity = scanner.nextInt();
+			
+			quantity += newQuantity;
+			
+			if(stockItem.quantityInStock() >= quantity) {
+				if(quantity > 0) {
+					System.out.println(quantity + " " + ((quantity == 1) ? 
+					stockItem.getName() : stockItem.getName() + "s") + 
+					" has been added to the basket");
+					basket.addToBasket(stockItem, quantity);
+					stockItem.addToReserve(customerBasket, quantity);
+					return quantity;
+				} else if (quantity == 0) {
+					boolean choice = false;
+					while (!choice) {
+						System.out.println("Your quantity is zero. Do you wish to remove this item from cart? (Y/N)");
+						String answer = scanner.nextLine();
+						if(answer.toUpperCase().equals("Y")) {
+							if(basket.removeItem(stockItem)) {
+								System.out.println("\n" + stockItem.getName() + " removed");
+							}
+							valid = true;
+						} else if (answer.toUpperCase().equals("N")){
+							System.out.println("Back to basket");
+						} else {
+							System.out.println("Not a valid entry");
+						}
+					}
+				} else {
+					System.out.println("You cannot have less than zero quantity");
+				}
+			} else {
+				System.out.println("There is not enough of that item in stock");
+			}
+		}
+		return 0;
+	}
+	
+	public static void removeFromBasket() {
+		scanner.nextLine();
+		System.out.println("Enter name of the item to remove");
+		String name = scanner.nextLine();
+		
+		name = nameCapitalized(name);
+		StockItem item = stockList.get(name);
+
+		if(customerBasket.Items().containsKey(item)) {
+			removeFromBasket(item);
+		} else {
+			System.out.println("This item is not your ");
+		}
+	}
+	
+	public static void removeFromBasket(StockItem item) {
+		scanner.nextLine();
+		boolean valid = false;
+		while (!valid) {
+			System.out.println("Are you sure you want to remove " + item.getName() + 
+					" from your basket? (Y/N)");
+			String answer = scanner.nextLine();
+			if(answer.toUpperCase().equals("Y")) {
+				if(customerBasket.removeItem(item)) {
+					System.out.println(item.getName() + " has been removed from stock");
+				} else {
+					System.out.println("Item not deleted");
+				}
+				valid = true;
+			} else if (answer.toUpperCase().equals("N")){
+				valid = true;
+			} else {
+				System.out.println("Not a valid entry");
+			}
+		}
+		System.out.println("Back to basket");
+	}
+	
+	public static double checkout(Basket basket) {
+		double total = 0.00;
+		// retrieve the item from stock list
+		for (Map.Entry<StockItem, Integer> item : basket.Items().entrySet()) {
+			stockList.sellStock(item.getKey().getName(), item.getValue());
+			total += (item.getValue() * item.getKey().getPrice());
+			basket.removeItem(item.getKey());
+		}
+		
+		return total;
+	}
+	
+	// Stock menu and options
 	public static void printStockInstructions() {
 		System.out.println("\n🛍 Stop and Drop! Item Stock.");
         System.out.println("\nPress: ");
@@ -240,6 +365,21 @@ public class Main {
 		}
 	}
 	
+	public static void removeFromStock() {
+		scanner.nextLine();
+		System.out.println("Enter the item to be removed");
+		String name = scanner.nextLine();
+		
+		name = nameCapitalized(name);
+		
+		if(stockList.get(name) != null) {
+			removeFromStock(stockList.get(name));
+		} else {
+			System.out.println("Item is not in stock");
+		}
+	}
+	
+	// Stock menu and options
 	public static void printStockItemMenu(String name) {
 		System.out.println("🛍 Stop and Drop! Stock Item " + name);
         System.out.println("\nPress: ");
@@ -304,97 +444,11 @@ public class Main {
 		return false;
 	}
 	
-	public static int addToBasket(Basket basket) {
-		scanner.nextLine();
-		System.out.println("\nEnter item from stock list to add to your basket");
-		String item = scanner.nextLine();
-		
-		int quantity = 0;
-		
-		StockItem stockItem = stockList.get(nameCapitalized(item));
-		
-		if(stockItem == null) {
-			System.out.println("We don't sell " + item);
-			return 0;
-		}
-		
-		if(basket.Items().containsKey(stockItem)) {
-			boolean valid = false;
-			while (!valid) {
-				System.out.println(item + " is already in your basket with a quantity of " + basket.Items().get(stockItem));
-				System.out.println("Would you like to add to the existing quantity? (Y/N)");
-				String answer = scanner.nextLine();
-				if(answer.toUpperCase().equals("Y")) {
-					quantity = basket.Items().get(stockItem);
-					valid = true;
-				} else if (answer.toUpperCase().equals("N")){
-					System.out.println("Back to basket");
-					return 0;
-				} else {
-					System.out.println("Not a valid entry");
-				}
-			}
-		}
-		
-		boolean valid = false;
-		while (!valid) {
-			System.out.println("Enter quantity of item. You can use negative numbers to substract from your cart.");
-			int newQuantity = scanner.nextInt();
-			
-			quantity += newQuantity;
-			
-			if(stockItem.quantityInStock() >= quantity) {
-				if(quantity > 0) {
-					System.out.println(quantity + " " + ((quantity == 1) ? 
-					stockItem.getName() : stockItem.getName() + "s") + 
-					" has been added to the basket");
-					basket.addToBasket(stockItem, quantity);
-					return quantity;
-				} else if (quantity == 0) {
-					boolean choice = false;
-					while (!choice) {
-						System.out.println("Your quantity is zero. Do you wish to remove this item from cart? (Y/N)");
-						String answer = scanner.nextLine();
-						if(answer.toUpperCase().equals("Y")) {
-							if(basket.removeItem(stockItem)) {
-								System.out.println("\n" + stockItem.getName() + " removed");
-							}
-							valid = true;
-						} else if (answer.toUpperCase().equals("N")){
-							System.out.println("Back to basket");
-						} else {
-							System.out.println("Not a valid entry");
-						}
-					}
-				} else {
-					System.out.println("You cannot have less than zero quantity");
-				}
-			} else {
-				System.out.println("There is not enough of that item in stock");
-			}
-		}
-		return 0;
-	}
-	
 	public static void setNewPrice(StockItem item) {
 		System.out.println("Enter the new price for " + item.getName());
 		double price = scanner.nextDouble();
 		
 		stockList.get(item.getName()).setPrice(price);
-	}
-	
-	public static void removeFromStock() {
-		scanner.nextLine();
-		System.out.println("Enter the item to be removed");
-		String name = scanner.nextLine();
-		
-		name = nameCapitalized(name);
-		
-		if(stockList.get(name) != null) {
-			removeFromStock(stockList.get(name));
-		} else {
-			System.out.println("Item is not in stock");
-		}
 	}
 	
 	public static void removeFromStock(StockItem item) {
@@ -418,44 +472,6 @@ public class Main {
 			}
 		}
 		System.out.println("Back to stock");
-	}
-	
-	public static void removeFromBasket() {
-		scanner.nextLine();
-		System.out.println("Enter name of the item to remove");
-		String name = scanner.nextLine();
-		
-		name = nameCapitalized(name);
-		StockItem item = stockList.get(name);
-
-		if(customerBasket.Items().containsKey(item)) {
-			removeFromStock(item);
-		} else {
-			System.out.println("This item is not your ");
-		}
-	}
-	
-	public static void removeFromBasket(StockItem item) {
-		scanner.nextLine();
-		boolean valid = false;
-		while (!valid) {
-			System.out.println("Are you sure you want to remove " + item.getName() + 
-					" from your basket? (Y/N)");
-			String answer = scanner.nextLine();
-			if(answer.toUpperCase().equals("Y")) {
-				if(customerBasket.removeItem(item)) {
-					System.out.println(item.getName() + " has been removed from stock");
-				} else {
-					System.out.println("Item not deleted");
-				}
-				valid = true;
-			} else if (answer.toUpperCase().equals("N")){
-				valid = true;
-			} else {
-				System.out.println("Not a valid entry");
-			}
-		}
-		System.out.println("Back to basket");
 	}
 	
 	public static void addToStock() {
@@ -505,18 +521,7 @@ public class Main {
 		}
 	}
 	
-	public static double checkout(Basket basket) {
-		double total = 0.00;
-		// retrieve the item from stock list
-		for (Map.Entry<StockItem, Integer> item : basket.Items().entrySet()) {
-			stockList.sellStock(item.getKey().getName(), item.getValue());
-			total += (item.getValue() * item.getKey().getPrice());
-			basket.removeItem(item.getKey());
-		}
-		
-		return total;
-	}
-	
+	// Items in stock are capitalized and contain underscores rather than spaces
 	public static String nameCapitalized(String name) {
 		return name.toUpperCase().replaceAll(" ", "_");
 	}

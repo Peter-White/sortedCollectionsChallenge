@@ -1,7 +1,7 @@
 package stopanddrop;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StockItem implements Comparable<StockItem> {
@@ -9,14 +9,14 @@ public class StockItem implements Comparable<StockItem> {
 	private final String name;
 	private double price;
 	private int quanityStock = 0; // can be initialized later
-	private Map<String, Integer> reserved;
+	private Map<Basket, Integer> reserved;
 	
 	public StockItem(String name, double price) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.quanityStock = 0; // or here (doesn't make sense to do both, best do it in here).
-		this.reserved = new HashMap<>();
+		this.reserved = new LinkedHashMap<>();
 	}
 	
 	public StockItem(String name, double price, int quanityStock) {
@@ -24,6 +24,7 @@ public class StockItem implements Comparable<StockItem> {
 		this.name = name;
 		this.price = price;
 		this.quanityStock = quanityStock;
+		this.reserved = new LinkedHashMap<>();
 	}
 
 	public String getName() {
@@ -34,12 +35,16 @@ public class StockItem implements Comparable<StockItem> {
 		return price;
 	}
 	
-	public Map<String, Integer> getReserved() {
+	public Map<Basket, Integer> getReserved() {
 		return Collections.unmodifiableMap(reserved);
 	}
 	
 	public void emptyReserve() {
 		reserved.clear();
+	}
+	
+	public void addToReserve(Basket basket, int quantity) {
+		reserved.put(basket, quantity);
 	}
 
 	public boolean setPrice(double price) {
